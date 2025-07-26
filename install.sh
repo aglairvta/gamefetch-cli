@@ -33,7 +33,7 @@ fi
 
 echo -e "${AMARELO}Instalando dependências...${RESET}"
 cd "$INSTALL_DIR"
-npm install --production
+npm install --omit=dev
 
 chmod +x "$INSTALL_DIR/main.js"
 
