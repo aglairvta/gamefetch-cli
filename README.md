@@ -30,7 +30,7 @@ Versão com interface gráfica (GUI):
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
 
-**Para instalar via terminal:**
+**Script de instalação (Linux):**
 
 ```bash
 curl -sL https://raw.githubusercontent.com/aglairvta/gamefetch-cli/main/install.sh | bash
@@ -43,3 +43,7 @@ Após a instalação, **reinicie seu terminal** para garantir que o comando `gam
 - `gamefetch-cli` → Inicia a aplicação
 - `gamefetch-cli -h` → Exibe o manual de uso (help)
 - `gamefetch-cli -l` → Lista todos os jogos disponíveis
+
+## Demo
+
+![demo](/demo.png)
