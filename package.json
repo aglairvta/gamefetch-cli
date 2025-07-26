@@ -1,6 +1,6 @@
 {
   "name": "gamefetch-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ferramenta de linha de comando para buscar, listar e baixar jogos.",
   "main": "main.js",
   "type": "commonjs",
