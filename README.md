@@ -6,8 +6,6 @@
 Versão com interface gráfica (GUI):  
 [github.com/aglairvta/gamefetch](https://github.com/aglairvta/gamefetch)
 
----
-
 ## Qual a estrutura do JSON?
 
 ```json
@@ -26,8 +24,6 @@ Versão com interface gráfica (GUI):
 }
 ```
 
----
-
 ## Instalação
 
 **Pré-requisitos:**
@@ -40,11 +36,9 @@ Versão com interface gráfica (GUI):
 curl -sL https://raw.githubusercontent.com/aglairvta/gamefetch-cli/main/install.sh | bash
 ```
 
-Após a instalação, **reinicie seu terminal** para garantir que o comando `gamefetch` esteja disponível globalmente.
+Após a instalação, **reinicie seu terminal** para garantir que o comando `gamefetch-cli` esteja disponível globalmente.
 
----
-
-## Comandos e Flags
+## Comandos
 
 - `gamefetch-cli` → Inicia a aplicação
 - `gamefetch-cli -h` → Exibe o manual de uso (help)
