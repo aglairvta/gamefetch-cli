@@ -3,14 +3,12 @@ set -e
 
 VERDE="\033[0;32m"
 AMARELO="\033[0;33m"
-VERMELHO="\033[0;31m"
 RESET="\033[0m"
 
 REPO_URL="https://github.com/aglairvta/gamefetch-cli.git"
 INSTALL_DIR="$HOME/gamefetch-cli"
-BIN_LINK="/usr/local/bin/gamefetch-cli"
 LOCAL_BIN="$HOME/.local/bin"
-LOCAL_LINK="$LOCAL_BIN/gamefetch-cli"
+BIN_LINK="$LOCAL_BIN/gamefetch-cli"
 
 echo -e "${VERDE}Iniciando instalação do gamefetch-cli...${RESET}"
 
@@ -36,41 +34,29 @@ fi
 echo -e "${AMARELO}Instalando dependências...${RESET}"
 cd "$INSTALL_DIR"
 npm install --production
-chmod +x main.js
 
-echo -e "${AMARELO}Criando link simbólico...${RESET}"
-if [ -w "/usr/local/bin" ]; then
-    ln -sf "$INSTALL_DIR/main.js" "$BIN_LINK"
-    echo -e "${VERDE}Link criado em /usr/local/bin/gamefetch-cli${RESET}"
+chmod +x "$INSTALL_DIR/main.js"
+
+mkdir -p "$LOCAL_BIN"
+ln -sf "$INSTALL_DIR/main.js" "$BIN_LINK"
+
+SHELL_NAME=$(basename "$SHELL")
+PROFILE_FILE=""
+
+if [ "$SHELL_NAME" = "bash" ]; then
+    PROFILE_FILE="$HOME/.bashrc"
+elif [ "$SHELL_NAME" = "zsh" ]; then
+    PROFILE_FILE="$HOME/.zshrc"
 else
-    echo -e "${VERMELHO}Sem permissão para escrever em /usr/local/bin.${RESET}"
-    echo -e "${AMARELO}Usando fallback: ~/.local/bin/gamefetch-cli${RESET}"
-    mkdir -p "$LOCAL_BIN"
-    ln -sf "$INSTALL_DIR/main.js" "$LOCAL_LINK"
-
-    CURRENT_SHELL=$(basename "$SHELL")
-    case "$CURRENT_SHELL" in
-        bash) SHELL_CONFIG="$HOME/.bashrc" ;;
-        zsh)  SHELL_CONFIG="$HOME/.zshrc" ;;
-        fish)
-            echo -e "${VERMELHO}Fish shell não suportado automaticamente. Adicione ~/.local/bin manualmente ao PATH.${RESET}"
-            exit 0
-            ;;
-        *) SHELL_CONFIG="$HOME/.profile" ;;
-    esac
-
-    if ! grep -q 'export PATH=\$HOME/.local/bin:\$PATH' "$SHELL_CONFIG"; then
-        echo -e "${AMARELO}Adicionando ~/.local/bin ao PATH em $SHELL_CONFIG...${RESET}"
-        echo '# Adicionado pelo instalador do gamefetch-cli' >> "$SHELL_CONFIG"
-        echo 'export PATH=$HOME/.local/bin:$PATH' >> "$SHELL_CONFIG"
-    else
-        echo -e "${AMARELO}PATH já configurado em $SHELL_CONFIG.${RESET}"
-    fi
-
-    echo -e "${VERDE}gamefetch-cli instalado com sucesso no ~/.local/bin!${RESET}"
-    echo -e "${AMARELO}Reinicie seu terminal ou rode:${RESET} source $SHELL_CONFIG"
-    exit 0
+    PROFILE_FILE="$HOME/.profile"
 fi
 
-echo -e "${VERDE}Instalação concluída com sucesso!${RESET}"
-echo -e "${VERDE}Você pode agora rodar:${RESET} gamefetch-cli"
+if ! grep -q 'export PATH=$HOME/.local/bin:$PATH' "$PROFILE_FILE"; then
+    echo -e "\n# Adicionado pelo instalador gamefetch-cli" >> "$PROFILE_FILE"
+    echo 'export PATH=$HOME/.local/bin:$PATH' >> "$PROFILE_FILE"
+fi
+
+echo -e "${AMARELO}Criando link simbólico em $BIN_LINK${RESET}"
+echo -e "${AMARELO}PATH atualizado em $PROFILE_FILE${RESET}"
+echo -e "${VERDE}Reinicie seu terminal ou rode: source $PROFILE_FILE${RESET}"
+echo -e "${VERDE}Agora você pode usar o comando 'gamefetch-cli'.${RESET}"
