@@ -1,6 +1,6 @@
 # Gamefetch-cli
 
->[!NOTE]
+> [!IMPORTANT]
 > Esta aplicação agrega conteúdos de fontes externas de terceiros e **filtra apenas os links hospedados no [pixeldrain](https://pixeldrain.com/)**, devido ao seu endpoint simples que permite download direto.
 
 Versão com interface gráfica (GUI):  
